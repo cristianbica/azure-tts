@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -28,8 +29,8 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
-    - name: Rubocop checks
-      uses: gimenete/rubocop-action@1.0
+    - name: Rubocop
+      uses: andrewmcodes/rubocop-linter-action@0.1.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
