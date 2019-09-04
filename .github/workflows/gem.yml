@@ -20,8 +20,11 @@ jobs:
         bundle install --jobs 4 --retry 3
         bundle exec rake
 
+    - name: Rubocop
+      uses: gimenete/rubocop-action@1.0
+
     - name: Publish
-      if: github.ref == 'master'
+      if: success() && github.ref == 'master'
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials
