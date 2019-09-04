@@ -3,7 +3,7 @@ name: RubyGem
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -13,18 +13,24 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
-        
     - name: Test
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
         bundle exec rake
 
-    - name: Rubocop
-      uses: gimenete/rubocop-action@1.0
-
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
     - name: Publish
-      if: success() && github.ref == 'master'
+      if: github.ref == 'master'
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials
