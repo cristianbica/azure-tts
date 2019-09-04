@@ -3,6 +3,7 @@ name: RubyGem
 on: [push]
 
 jobs:
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -47,7 +48,7 @@ jobs:
       with:
         ruby-version: 2.6.x
     - name: Publish
-      if: github.ref == 'refs/heads/master'
+      if: startsWith(github.ref, 'refs/tags/v')
       run: |
         mkdir -p $HOME/.gem
         touch $HOME/.gem/credentials
