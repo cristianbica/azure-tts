@@ -2,7 +2,7 @@
 
 Text-to-speech gem based using Azure Cognitive Speech Services.
 
-Status: alpha (has just some basic testing)
+Status: alpha (it works, has just some basic testing and it's not use anywhere in production)
 
 ## Installation
 
