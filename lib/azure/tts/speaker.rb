@@ -17,9 +17,13 @@ module Azure
       end
 
       def ssml
-        ssml = RubySpeech::SSML.draw
-        ssml.voice gender: @voice.gender, name: @voice.short_name, language: @voice.locale, content: @text
-        ssml.to_s
+        <<-SSML
+          <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="#{@voice.locale}">
+              <voice gender="#{@voice.gender}" name="#{@voice.short_name}">
+                  #{@text}
+              </voice>
+          </speak>
+        SSML
       end
 
       def headers
